@@ -11,10 +11,20 @@ prompt.start();
 prompt.get(["mode"], function (err, result) {
   switch (+result.mode) {
     case 1:
-      sg.encodeImage();
+      prompt.start();
+      prompt.get(
+        ["inputImagePath", "outputImagePath", "secretFilePath"],
+        function (err, result) {
+          sg.encodeImage(result.inputImagePath, result.outputImagePath, result.secretFilePath);
+        }
+      );
       break;
     case 2:
-      sg.decodeImage();
+      prompt.start();
+      prompt.get(["imagePath", "key"],
+        function (err, result){
+          sg.decodeImage(result.key, result.imagePath);
+        });
       break;
     default:
       return;
